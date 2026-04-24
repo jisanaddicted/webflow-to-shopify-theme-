@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-section"
+    },
+    "categories_intro": {
+      "type": "home-categories-intro"
+    },
+    "categories": {
+      "type": "home-categories"
+    },
+    "newsletter": {
+      "type": "home-newsletter"
+    }
+  },
+  "order": ["hero", "categories_intro", "categories", "newsletter"]
+}

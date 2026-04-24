@@ -1,0 +1,104 @@
+<section class="section-3">
+  <div class="div-block-25">
+    <div class="text-block-14">{{ collection.title | default: 'Shop' }}</div>
+    <div class="text-block-15">{{ collection.description | strip_html | default: 'Finde Genetik, die genau das liefert, was du brauchst.' }}</div>
+  </div>
+  <img src="{{ 'White-Corner-1-1.png' | asset_url }}" loading="lazy" alt="" class="image-10">
+</section>
+
+<section class="section-5">
+  <div class="w-layout-blockcontainer container w-container">
+    <p class="paragraph-8">Nicht planlos klicken. Sondern gezielt selektieren.</p>
+    <p class="paragraph-9">Filtere nach Kategorie, Terpenen, Wirkung oder Washer-Qualität – und finde Genetik, die genau das liefert, was du brauchst. Und mehr.</p>
+    <img src="{{ 'dna-helix-png-3d-transparent-background-2-1.png' | asset_url }}" loading="lazy" alt="" class="image1">
+    <img src="{{ 'dna-helix-png-3d-transparent-background-2-1.png' | asset_url }}" loading="lazy" alt="" class="image2">
+  </div>
+</section>
+
+<section class="section-4">
+  {% if collection and collection.products_count > 0 %}
+    {% for product in collection.products %}
+      {% assign effect_level = product.metafields.primecuts.effect_level.value | default: 50 | at_least: 0 | at_most: 100 %}
+      {% assign thc_level = product.metafields.primecuts.thc_level.value | default: 50 | at_least: 0 | at_most: 100 %}
+      <div class="div-block-26">
+        <div class="div-block-27">
+          {% if product.featured_image %}
+            {{ product.featured_image | image_url: width: 706 | image_tag: loading: 'lazy', class: 'image-11', alt: product.title }}
+          {% else %}
+            <img src="{{ 'Frame-25.png' | asset_url }}" loading="lazy" alt="" class="image-11">
+          {% endif %}
+        </div>
+        <div class="div-block-28">
+          <div class="div-block-29">
+            <div class="div-block-31">
+              <div class="div-block-32">
+                {% if product.vendor != blank %}<p class="paragraph">{{ product.vendor }}</p>{% endif %}
+                {% if product.type != blank %}<p class="paragraph">{{ product.type }}</p>{% endif %}
+                {% for tag in product.tags limit: 1 %}<p class="paragraph">{{ tag }}</p>{% endfor %}
+              </div>
+              <h2 class="heading"><strong>{{ product.title }}</strong></h2>
+            </div>
+          </div>
+
+          <div class="div-block-39">
+            <p class="paragraph-2">Terpene:</p>
+            <div class="div-block-37">
+              {% for tag in product.tags limit: 3 %}
+                <p class="paragraph-3{% if forloop.index == 2 %} option2{% elsif forloop.index == 3 %} button3{% endif %}">{{ tag }}</p>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="div-block-43">
+            <div class="div-block-40">
+              <p class="paragraph-5">beruhigend</p>
+              <p class="paragraph-4">anregend</p>
+            </div>
+            <div class="div-block-41">
+              <div class="div-block-42" style="width: {{ effect_level }}%;"></div>
+            </div>
+          </div>
+
+          <div class="div-block-43">
+            <div class="div-block-40">
+              <p class="paragraph-5">Wenig THC</p>
+              <p class="paragraph-4">Viel THC</p>
+            </div>
+            <div class="div-block-41">
+              <div class="div-block-42 loading" style="width: {{ thc_level }}%;"></div>
+            </div>
+          </div>
+
+          <div class="div-block-44">
+            <p class="paragraph-6">{{ product.price | money }}</p>
+            <p class="paragraph-7">inkl. MwSt.</p>
+          </div>
+
+          <div class="div-block-45">
+            <a class="div-block-46" href="{{ product.url }}">
+              <div class="text-block-16">mehr Infos</div><img src="{{ 'Vector.png' | asset_url }}" loading="lazy" alt="" class="image-12">
+            </a>
+
+            <form method="post" action="/cart/add">
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+              <button type="submit" class="div-block-47">
+                <div class="text-block-17">In den Warenkorb</div><img src="{{ 'Frame.png' | asset_url }}" loading="lazy" alt="" class="image-13">
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="w-container">
+      <p>No products found.</p>
+    </div>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Main Collection",
+  "settings": []
+}
+{% endschema %}

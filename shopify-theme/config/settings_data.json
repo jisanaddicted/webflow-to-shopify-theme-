@@ -1,0 +1,10 @@
+{
+  "current": {
+    "primary_menu": "main-menu"
+  },
+  "presets": {
+    "Default": {
+      "primary_menu": "main-menu"
+    }
+  }
+}

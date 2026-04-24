@@ -1,0 +1,10 @@
+/* Custom overrides (kept separate from Webflow export). */
+.home-categories-intro .card-slider-section {
+  height: auto;
+  min-height: 0;
+}
+
+.home-categories-intro .div-block-9 {
+  height: auto;
+}
+

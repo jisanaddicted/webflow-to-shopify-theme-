@@ -1,0 +1,36 @@
+[
+  {
+    "name": "Theme settings",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Header"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo image"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "label": "Logo width",
+        "min": 40,
+        "max": 400,
+        "step": 10,
+        "unit": "px",
+        "default": 160
+      },
+      {
+        "type": "header",
+        "content": "Navigation"
+      },
+      {
+        "type": "link_list",
+        "id": "primary_menu",
+        "label": "Primary menu",
+        "default": "main-menu"
+      }
+    ]
+  }
+]
