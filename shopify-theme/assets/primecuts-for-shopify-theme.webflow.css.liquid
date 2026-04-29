@@ -888,27 +888,27 @@ h1 {
   width: auto;
   height: 581px;
   position: absolute;
-  inset: -4% 0% 7% auto;
+  inset: -33% 0% 7% auto;
 }
 
 .image-2 {
   z-index: 4;
   height: 529px;
   position: absolute;
-  inset: 5% 7% 0% auto;
+  inset: -21% 7% 0% auto;
 }
 
 .image-3 {
   z-index: 3;
   height: 504px;
   position: absolute;
-  inset: 10% 22% 0% auto;
+  inset: -15% 22% 0% auto;
 }
 
 .image-4 {
   height: 424px;
   position: relative;
-  top: 137px;
+  top: 16px;
   right: 175px;
 }
 
@@ -933,7 +933,7 @@ h1 {
 .div-block-9 {
   grid-column-gap: 64px;
   grid-row-gap: 64px;
-  border: 1px solid #b4a1a1;
+  
   flex-flow: column;
   width: 937px;
   height: 422px;
@@ -1054,7 +1054,8 @@ h1 {
 }
 
 .section-2 {
-  position: static;
+  position: relative;
+  z-index: 10;
 }
 
 .div-block-15 {
@@ -1540,12 +1541,16 @@ h1 {
 .section-4 {
   grid-column-gap: 53px;
   grid-row-gap: 53px;
+  gap: 53px;
   background-color: #eff2f6;
-  flex-flow: row;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: flex-start;
   width: auto;
   margin-left: 69px;
   margin-right: 69px;
   display: flex;
+  overflow-x: hidden;
 }
 
 .section-5 {
@@ -2750,6 +2755,13 @@ body.menu-open {
     margin-left: 20px;
     margin-right: 20px;
     font-size: 14px;
+  }
+}
+
+@media screen and (min-width: 480px) and (max-width: 767px) {
+  .div-block-7 img {
+    margin-top: 70px;
+    transform-origin: bottom right;
   }
 }
 

@@ -8,3 +8,15 @@
   height: auto;
 }
 
+#shopify-section-hero-section .section {
+  overflow: hidden;
+}
+
+#shopify-section-hero-section .div-block-7 {
+  inset: auto 0 0 auto;
+  margin-top: 0;
+}
+
+#shopify-section-hero-section .div-block-7 .image {
+  inset: auto 0 0 auto;
+}

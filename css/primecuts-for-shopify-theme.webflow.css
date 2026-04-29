@@ -888,21 +888,21 @@ h1 {
   width: auto;
   height: 581px;
   position: absolute;
-  inset: -4% 0% 7% auto;
+  inset: 25% 0% 7% auto;
 }
 
 .image-2 {
   z-index: 4;
   height: 529px;
   position: absolute;
-  inset: 5% 7% 0% auto;
+  inset: 26% 7% 0% auto;
 }
 
 .image-3 {
   z-index: 3;
   height: 504px;
   position: absolute;
-  inset: 10% 22% 0% auto;
+  inset: 27% 22% 0% auto;
 }
 
 .image-4 {
@@ -933,7 +933,7 @@ h1 {
 .div-block-9 {
   grid-column-gap: 64px;
   grid-row-gap: 64px;
-  border: 1px solid #b4a1a1;
+  
   flex-flow: column;
   width: 937px;
   height: 422px;
@@ -2750,6 +2750,13 @@ body.menu-open {
     margin-left: 20px;
     margin-right: 20px;
     font-size: 14px;
+  }
+}
+
+@media screen and (min-width: 480px) and (max-width: 767px) {
+  .div-block-7 img {
+    margin-top: 70px;
+    transform-origin: bottom right;
   }
 }
 

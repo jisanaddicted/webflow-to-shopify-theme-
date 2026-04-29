@@ -15,7 +15,10 @@
   </div>
 </section>
 
-<section class="section-4">
+<section
+  class="section-4"
+  style="padding-top: {{ section.settings.section4_padding_top | default: 60 }}px; padding-bottom: {{ section.settings.section4_padding_bottom | default: 60 }}px;"
+>
   {% if collection and collection.products_count > 0 %}
     {% for product in collection.products %}
       {% assign effect_level = product.metafields.primecuts.effect_level.value | default: 50 | at_least: 0 | at_most: 100 %}
@@ -99,6 +102,25 @@
 {% schema %}
 {
   "name": "Main Collection",
-  "settings": []
+  "settings": [
+    {
+      "type": "range",
+      "id": "section4_padding_top",
+      "label": "Section 4 padding top (px)",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "section4_padding_bottom",
+      "label": "Section 4 padding bottom (px)",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 60
+    }
+  ]
 }
 {% endschema %}
