@@ -1,8 +1,22 @@
+{% assign sticky_enabled = section.settings.sticky_header | default: true %}
+
 <header
-  {% if section.settings.header_bg_enabled %}
-    style="background-color: {{ section.settings.header_bg_color }};"
-  {% endif %}
+  class="{% if sticky_enabled %}is-sticky{% endif %}"
+  style="
+    {% if section.settings.header_bg_enabled %}background-color: {{ section.settings.header_bg_color }};{% endif %}
+    --header-link-color: {{ section.settings.header_link_color | default: '#ffffff' }};
+    --header-link-hover-color: {{ section.settings.header_link_hover_color | default: section.settings.header_link_color | default: '#ffffff' }};
+  "
 >
+  {% if section.settings.announcement_enabled and section.settings.announcement_text != blank %}
+    <div class="announcement-bar" role="region" aria-label="Announcement">
+      {% if section.settings.announcement_link != blank %}
+        <a class="announcement-bar__link" href="{{ section.settings.announcement_link }}">{{ section.settings.announcement_text | escape }}</a>
+      {% else %}
+        <div class="announcement-bar__text">{{ section.settings.announcement_text | escape }}</div>
+      {% endif %}
+    </div>
+  {% endif %}
   <div class="div-block">
     <div class="div-block-3">
       <a href="{{ routes.root_url }}">
@@ -58,6 +72,21 @@
         </div>
       {% endif %}
     </div>
+
+    <div class="header-cart">
+      <a class="header-cart__link" href="{{ routes.cart_url }}">
+        <span class="visually-hidden">
+          Cart{% if cart.item_count > 0 %} ({{ cart.item_count }}){% endif %}
+        </span>
+        <svg class="header-cart__icon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M7 10V8a5 5 0 0 1 10 0v2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          <path d="M6 10h12l-1 11H7L6 10Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+        </svg>
+        {% if cart.item_count > 0 %}
+          <span class="header-cart__count" aria-hidden="true">{{ cart.item_count }}</span>
+        {% endif %}
+      </a>
+    </div>
   </div>
 </header>
 
@@ -65,6 +94,41 @@
 {
   "name": "Header",
   "settings": [
+    {
+      "type": "header",
+      "content": "Behavior"
+    },
+    {
+      "type": "checkbox",
+      "id": "sticky_header",
+      "label": "Enable sticky header",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Announcement bar"
+    },
+    {
+      "type": "checkbox",
+      "id": "announcement_enabled",
+      "label": "Show announcement bar",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement text",
+      "default": "Free shipping over $50"
+    },
+    {
+      "type": "url",
+      "id": "announcement_link",
+      "label": "Announcement link (optional)"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
     {
       "type": "checkbox",
       "id": "header_bg_enabled",
@@ -76,6 +140,18 @@
       "id": "header_bg_color",
       "label": "Header background color",
       "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "header_link_color",
+      "label": "Header link color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "header_link_hover_color",
+      "label": "Header link hover color",
+      "default": "#ffffff"
     },
     {
       "type": "link_list",

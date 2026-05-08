@@ -48,13 +48,13 @@
             <div class="div-block-29">
               <div class="div-block-31">
                 <div class="div-block-32">
-                  {% if section.settings.show_vendor %}
+                  {% if settings.product_card_show_vendor %}
                     <p class="paragraph">{% if product.vendor != blank %}{{ product.vendor }}{% else %}&nbsp;{% endif %}</p>
                   {% endif %}
-                  {% if section.settings.show_type %}
+                  {% if settings.product_card_show_type %}
                     <p class="paragraph">{% if product.type != blank %}{{ product.type }}{% else %}&nbsp;{% endif %}</p>
                   {% endif %}
-                  {% if section.settings.show_tag %}
+                  {% if settings.product_card_show_tag %}
                     <p class="paragraph">{% if first_tag != blank %}{{ first_tag }}{% else %}&nbsp;{% endif %}</p>
                   {% endif %}
                 </div>
@@ -63,7 +63,7 @@
             </div>
 
             <div class="div-block-39">
-              <p class="paragraph-2">{{ section.settings.terpene_label | escape }}</p>
+              <p class="paragraph-2">{{ settings.product_card_terpene_label | escape }}</p>
               <div class="div-block-37">
                 {% assign tag_count = 0 %}
                 {% for tag in product.tags limit: 3 %}
@@ -83,8 +83,8 @@
 
             <div class="div-block-43">
               <div class="div-block-40">
-                <p class="paragraph-5">{{ section.settings.effect_left_label | escape }}</p>
-                <p class="paragraph-4">{{ section.settings.effect_right_label | escape }}</p>
+                <p class="paragraph-5">{{ settings.product_card_effect_left_label | escape }}</p>
+                <p class="paragraph-4">{{ settings.product_card_effect_right_label | escape }}</p>
               </div>
               <div class="div-block-41">
                 <div class="div-block-42" style="width: {{ effect_level }}%;"></div>
@@ -93,8 +93,8 @@
 
             <div class="div-block-43">
               <div class="div-block-40">
-                <p class="paragraph-5">{{ section.settings.thc_left_label | escape }}</p>
-                <p class="paragraph-4">{{ section.settings.thc_right_label | escape }}</p>
+                <p class="paragraph-5">{{ settings.product_card_thc_left_label | escape }}</p>
+                <p class="paragraph-4">{{ settings.product_card_thc_right_label | escape }}</p>
               </div>
               <div class="div-block-41">
                 <div class="div-block-42 loading" style="width: {{ thc_level }}%;"></div>
@@ -103,24 +103,25 @@
 
             <div class="div-block-44">
               <p class="paragraph-6">{{ product.price | money }}</p>
-              <p class="paragraph-7">{{ section.settings.tax_note | escape }}</p>
+              <p class="paragraph-7">{{ settings.product_card_tax_note | escape }}</p>
             </div>
 
             <div class="div-block-45">
               <a class="div-block-46" href="{{ product.url }}">
-                <div class="text-block-16">{{ section.settings.more_info_label | escape }}</div><img src="{{ 'Vector.png' | asset_url }}" loading="lazy" alt="" class="image-12">
+                <div class="text-block-16">{{ settings.product_card_more_info_label | escape }}</div><img src="{{ 'Vector.png' | asset_url }}" loading="lazy" alt="" class="image-12">
               </a>
 
               {% if product.available %}
-                <form method="post" action="{{ routes.cart_add_url }}">
+                {% form 'product', product %}
                   <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-                  <button type="submit" class="div-block-47">
-                    <div class="text-block-17">{{ section.settings.add_to_cart_label | escape }}</div><img loading="lazy" src="{{ 'Frame.png' | asset_url }}" alt="" class="image-13">
+                  <input type="hidden" name="quantity" value="1">
+                  <button type="submit" name="add" class="div-block-47">
+                    <div class="text-block-17">{{ settings.product_card_add_to_cart_label | escape }}</div><img loading="lazy" src="{{ 'Frame.png' | asset_url }}" alt="" class="image-13">
                   </button>
-                </form>
+                {% endform %}
               {% else %}
                 <div class="div-block-47" aria-disabled="true">
-                  <div class="text-block-17">{{ section.settings.sold_out_label | escape }}</div><img loading="lazy" src="{{ 'Frame.png' | asset_url }}" alt="" class="image-13">
+                  <div class="text-block-17">{{ settings.product_card_sold_out_label | escape }}</div><img loading="lazy" src="{{ 'Frame.png' | asset_url }}" alt="" class="image-13">
                 </div>
               {% endif %}
             </div>
@@ -193,78 +194,6 @@
       "max": 200,
       "step": 4,
       "default": 60
-    },
-    {
-      "type": "checkbox",
-      "id": "show_vendor",
-      "label": "Show vendor line",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_type",
-      "label": "Show product type line",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_tag",
-      "label": "Show first tag line",
-      "default": true
-    },
-    {
-      "type": "text",
-      "id": "terpene_label",
-      "label": "Terpene label",
-      "default": "Terpene:"
-    },
-    {
-      "type": "text",
-      "id": "effect_left_label",
-      "label": "Effect left label",
-      "default": "beruhigend"
-    },
-    {
-      "type": "text",
-      "id": "effect_right_label",
-      "label": "Effect right label",
-      "default": "anregend"
-    },
-    {
-      "type": "text",
-      "id": "thc_left_label",
-      "label": "THC left label",
-      "default": "Wenig THC"
-    },
-    {
-      "type": "text",
-      "id": "thc_right_label",
-      "label": "THC right label",
-      "default": "Viel THC"
-    },
-    {
-      "type": "text",
-      "id": "tax_note",
-      "label": "Tax note",
-      "default": "inkl. MwSt."
-    },
-    {
-      "type": "text",
-      "id": "more_info_label",
-      "label": "More info label",
-      "default": "mehr Infos"
-    },
-    {
-      "type": "text",
-      "id": "add_to_cart_label",
-      "label": "Add to cart label",
-      "default": "In den Warenkorb"
-    },
-    {
-      "type": "text",
-      "id": "sold_out_label",
-      "label": "Sold out label",
-      "default": "Ausverkauft"
     },
     {
       "type": "text",
